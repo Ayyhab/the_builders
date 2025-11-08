@@ -1,4 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -79,13 +80,13 @@ export default function Hero() {
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
           <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-            <img
-              alt="App screenshot"
-              src="https://tailwindcss.com/plus-assets/img/component-images/project-app-screenshot.png"
-              width={2432}
-              height={1442}
-              className="w-[76rem] rounded-md bg-gray-50 shadow-xl ring-1 ring-gray-900/10"
-            />
+           <Image
+  alt="App screenshot"
+  src="/hero.png"
+  width={2432}
+  height={1442}
+  className="w-full max-h-[1000px] object-contain rounded-md bg-gray-50 shadow-xl ring-1 ring-gray-900/10"
+/>
           </div>
         </div>
       </div>

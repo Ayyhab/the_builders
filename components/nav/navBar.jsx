@@ -1,3 +1,4 @@
+"use client";
 import {
   Disclosure,
   DisclosureButton,
@@ -8,11 +9,22 @@ import {
   MenuItems,
 } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+
+const links = [
+  { name: "Home", href: "/" },
+  { name: "Dashboard", href: "/dashboard" },
+  { name: "idk", href: "/projects" },
+
+];
 
 export default function NavBar() {
+  const pathname = usePathname();
+
   return (
     <Disclosure as="nav" className="relative bg-white shadow">
-      <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+      <div className="mx-auto px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
             {/* Mobile menu button */}
@@ -32,30 +44,22 @@ export default function NavBar() {
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="hidden sm:flex sm:space-x-8">
               {/* Current: "border-indigo-600 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-              <a
-                href="#"
-                className="inline-flex items-center border-b-2 border-green-600 px-1 pt-1 text-sm font-medium text-gray-900"
-              >
-                Dashboard
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-              >
-                Team
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-              >
-                Projects
-              </a>
-              <a
-                href="#"
-                className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
-              >
-                Calendar
-              </a>
+              {links.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`inline-flex items-center px-1 pt-1 text-sm font-medium ${
+                      isActive
+                        ? "text-green-700 border-b-2 border-green-600  decoration-2"
+                        : "text-gray-500 hover:text-gray-700 hover:border-gray-300 border-b-2 border-transparent"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                );
+              })}
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">

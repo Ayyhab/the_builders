@@ -16,7 +16,6 @@ import {
   SignalIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Bars3Icon, MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const navigation = [
   { name: "Projects", href: "#", icon: FolderIcon, current: false },
@@ -33,16 +32,7 @@ const teams = [
 ];
 const secondaryNavigation = [
   { name: "Overview", href: "#", current: true },
-  { name: "Activity", href: "#", current: false },
-  { name: "Settings", href: "#", current: false },
-  { name: "Collaborators", href: "#", current: false },
-  { name: "Notifications", href: "#", current: false },
-];
-const stats = [
-  { name: "Number of deploys", value: "405" },
-  { name: "Average deploy time", value: "3.65", unit: "mins" },
-  { name: "Number of servers", value: "3" },
-  { name: "Success rate", value: "98.5%" },
+  { name: "Other links if we want", href: "#", current: false },
 ];
 const statuses = {
   Completed: "text-green-500 bg-green-500/10",
@@ -55,9 +45,7 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "2d89f0c8",
-    branch: "main",
-    status: "Completed",
+    status: "Not signed",
     duration: "25s",
     date: "45 minutes ago",
     dateTime: "2023-01-23T11:00",
@@ -68,9 +56,8 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "249df660",
-    branch: "main",
-    status: "Completed",
+
+    status: "Not signed",
     duration: "1m 32s",
     date: "3 hours ago",
     dateTime: "2023-01-23T09:00",
@@ -81,9 +68,8 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "11464223",
-    branch: "main",
-    status: "Error",
+
+    status: "On board",
     duration: "1m 4s",
     date: "12 hours ago",
     dateTime: "2023-01-23T00:00",
@@ -94,9 +80,7 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "dad28e95",
-    branch: "main",
-    status: "Completed",
+    status: "On board",
     duration: "2m 15s",
     date: "2 days ago",
     dateTime: "2023-01-21T13:00",
@@ -107,9 +91,7 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "624bc94c",
-    branch: "main",
-    status: "Completed",
+    status: "On board",
     duration: "1m 12s",
     date: "5 days ago",
     dateTime: "2023-01-18T12:34",
@@ -120,9 +102,7 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "e111f80e",
-    branch: "main",
-    status: "Completed",
+    status: "On board",
     duration: "1m 56s",
     date: "1 week ago",
     dateTime: "2023-01-16T15:54",
@@ -133,9 +113,7 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "5e136005",
-    branch: "main",
-    status: "Completed",
+    status: "In talks",
     duration: "3m 45s",
     date: "1 week ago",
     dateTime: "2023-01-16T11:31",
@@ -146,15 +124,18 @@ const activityItems = [
       imageUrl:
         "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
     },
-    commit: "5c1fd07f",
-    branch: "main",
-    status: "Completed",
+    status: "Not signed",
     duration: "37s",
     date: "2 weeks ago",
     dateTime: "2023-01-09T08:45",
   },
 ];
-
+const stats = [
+  { name: "Number of clients", value: `${activityItems.length}` },
+  { name: "Clients on board", value: "4", unit: "" },
+  { name: "Clients completed", value: "12" },
+  { name: "Success rate", value: "75.5%" },
+];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -164,7 +145,6 @@ export default function Example() {
 
   return (
     <>
-      
       <div>
         <Dialog
           open={sidebarOpen}
@@ -181,28 +161,12 @@ export default function Example() {
               transition
               className="relative mr-16 flex w-full max-w-xs flex-1 transform transition duration-300 ease-in-out data-[closed]:-translate-x-full"
             >
-              <TransitionChild>
-                <div className="absolute left-full top-0 flex w-16 justify-center pt-5 duration-300 ease-in-out data-[closed]:opacity-0">
-                  <button
-                    type="button"
-                    onClick={() => setSidebarOpen(false)}
-                    className="-m-2.5 p-2.5"
-                  >
-                    <span className="sr-only">Close sidebar</span>
-                    <XMarkIcon
-                      aria-hidden="true"
-                      className="size-6 text-white"
-                    />
-                  </button>
-                </div>
-              </TransitionChild>
-
               {/* Sidebar component, swap this element with another sidebar if you like */}
               <div className="relative flex grow flex-col gap-y-5 overflow-y-auto bg-gray-50 px-6">
                 <div className="relative flex h-16 shrink-0 items-center">
                   <img
                     alt="Your Company"
-                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
+                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=green&shade=600"
                     className="h-8 w-auto"
                   />
                 </div>
@@ -216,8 +180,8 @@ export default function Example() {
                               href={item.href}
                               className={classNames(
                                 item.current
-                                  ? "bg-gray-100 text-indigo-600"
-                                  : "text-gray-700 hover:bg-gray-100 hover:text-indigo-600",
+                                  ? "bg-gray-100 text-green-600"
+                                  : "text-gray-700 hover:bg-gray-100 hover:text-green-600",
                                 "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
                               )}
                             >
@@ -225,8 +189,8 @@ export default function Example() {
                                 aria-hidden="true"
                                 className={classNames(
                                   item.current
-                                    ? "text-indigo-600"
-                                    : "text-gray-400 group-hover:text-indigo-600",
+                                    ? "text-green-600"
+                                    : "text-gray-400 group-hover:text-green-600",
                                   "size-6 shrink-0"
                                 )}
                               />
@@ -247,16 +211,16 @@ export default function Example() {
                               href={team.href}
                               className={classNames(
                                 team.current
-                                  ? "bg-gray-100 text-indigo-600"
-                                  : "text-gray-700 hover:bg-gray-100 hover:text-indigo-600",
+                                  ? "bg-gray-100 text-green-600"
+                                  : "text-gray-700 hover:bg-gray-100 hover:text-green-600",
                                 "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
                               )}
                             >
                               <span
                                 className={classNames(
                                   team.current
-                                    ? "border-indigo-600 text-indigo-600"
-                                    : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
+                                    ? "border-green-600 text-green-600"
+                                    : "border-gray-200 text-gray-400 group-hover:border-green-600 group-hover:text-green-600",
                                   "flex size-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
                                 )}
                               >
@@ -290,125 +254,8 @@ export default function Example() {
         </Dialog>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden xl:fixed xl:inset-y-0 xl:z-50 xl:flex xl:w-72 xl:flex-col">
-          {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gray-50 px-6 ring-1 ring-gray-200">
-            <div className="flex h-16 shrink-0 items-center">
-              <img
-                alt="Your Company"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                className="h-8 w-auto"
-              />
-            </div>
-            <nav className="flex flex-1 flex-col">
-              <ul role="list" className="flex flex-1 flex-col gap-y-7">
-                <li>
-                  <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => (
-                      <li key={item.name}>
-                        <a
-                          href={item.href}
-                          className={classNames(
-                            item.current
-                              ? "bg-gray-100 text-indigo-600"
-                              : "text-gray-700 hover:bg-gray-100 hover:text-indigo-600",
-                            "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
-                          )}
-                        >
-                          <item.icon
-                            aria-hidden="true"
-                            className={classNames(
-                              item.current
-                                ? "text-indigo-600"
-                                : "text-gray-400 group-hover:text-indigo-600",
-                              "size-6 shrink-0"
-                            )}
-                          />
-                          {item.name}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                <li>
-                  <div className="text-xs/6 font-semibold text-gray-500">
-                    Your teams
-                  </div>
-                  <ul role="list" className="-mx-2 mt-2 space-y-1">
-                    {teams.map((team) => (
-                      <li key={team.name}>
-                        <a
-                          href={team.href}
-                          className={classNames(
-                            team.current
-                              ? "bg-gray-100 text-indigo-600"
-                              : "text-gray-700 hover:bg-gray-100 hover:text-indigo-600",
-                            "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold"
-                          )}
-                        >
-                          <span
-                            className={classNames(
-                              team.current
-                                ? "border-indigo-600 text-indigo-600"
-                                : "border-gray-200 text-gray-400 group-hover:border-indigo-600 group-hover:text-indigo-600",
-                              "flex size-6 shrink-0 items-center justify-center rounded-lg border bg-white text-[0.625rem] font-medium"
-                            )}
-                          >
-                            {team.initial}
-                          </span>
-                          <span className="truncate">{team.name}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-                <li className="-mx-6 mt-auto">
-                  <a
-                    href="#"
-                    className="flex items-center gap-x-4 px-6 py-3 text-sm/6 font-semibold text-gray-900 hover:bg-gray-100"
-                  >
-                    <img
-                      alt=""
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                      className="size-8 rounded-full bg-gray-100 outline outline-1 -outline-offset-1 outline-black/5"
-                    />
-                    <span className="sr-only">Your profile</span>
-                    <span aria-hidden="true">Tom Cook</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
 
-        <div className="xl:pl-72">
-          {/* Sticky search header */}
-          <div className="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-6 border-b border-gray-200 bg-white px-4 shadow-sm sm:px-6 lg:px-8">
-            <button
-              type="button"
-              onClick={() => setSidebarOpen(true)}
-              className="-m-2.5 p-2.5 text-gray-900 xl:hidden"
-            >
-              <span className="sr-only">Open sidebar</span>
-              <Bars3Icon aria-hidden="true" className="size-5" />
-            </button>
-
-            <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <form action="#" method="GET" className="grid flex-1 grid-cols-1">
-                <input
-                  name="search"
-                  placeholder="Search"
-                  aria-label="Search"
-                  className="col-start-1 row-start-1 block size-full bg-transparent pl-8 text-base text-gray-900 outline-none placeholder:text-gray-400 sm:text-sm/6"
-                />
-                <MagnifyingGlassIcon
-                  aria-hidden="true"
-                  className="pointer-events-none col-start-1 row-start-1 size-5 self-center text-gray-400"
-                />
-              </form>
-            </div>
-          </div>
-
+        <div>
           <main>
             <header>
               {/* Secondary navigation */}
@@ -421,7 +268,7 @@ export default function Example() {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className={item.current ? "text-indigo-600" : ""}
+                        className={item.current ? "text-green-600" : ""}
                       >
                         {item.name}
                       </a>
@@ -439,19 +286,15 @@ export default function Example() {
                     </div>
                     <h1 className="flex gap-x-3 text-base/7">
                       <span className="font-semibold text-gray-900">
-                        Planetaria
-                      </span>
-                      <span className="text-gray-400">/</span>
-                      <span className="font-semibold text-gray-900">
-                        mobile-api
+                        Company name
                       </span>
                     </h1>
                   </div>
                   <p className="mt-2 text-xs/6 text-gray-500">
-                    Deploys from GitHub via main branch
+                    Main client CRM
                   </p>
                 </div>
-                <div className="order-first flex-none rounded-full bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-500 ring-1 ring-inset ring-indigo-200 sm:order-none">
+                <div className="order-first flex-none rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-500 ring-1 ring-inset ring-green-200 sm:order-none">
                   Production
                 </div>
               </div>
@@ -507,31 +350,26 @@ export default function Example() {
                       scope="col"
                       className="py-2 pl-4 pr-8 font-semibold sm:pl-6 lg:pl-8"
                     >
-                      User
+                      Client
                     </th>
                     <th
                       scope="col"
                       className="hidden py-2 pl-0 pr-8 font-semibold sm:table-cell"
                     >
-                      Commit
-                    </th>
-                    <th
-                      scope="col"
-                      className="py-2 pl-0 pr-4 text-right font-semibold sm:pr-8 sm:text-left lg:pr-20"
-                    >
                       Status
                     </th>
+
                     <th
                       scope="col"
                       className="hidden py-2 pl-0 pr-8 font-semibold md:table-cell lg:pr-20"
                     >
-                      Duration
+                      Last spoken to
                     </th>
                     <th
                       scope="col"
                       className="hidden py-2 pl-0 pr-4 text-right font-semibold sm:table-cell sm:pr-6 lg:pr-8"
                     >
-                      Deployed at
+                      Last project
                     </th>
                   </tr>
                 </thead>
@@ -552,33 +390,9 @@ export default function Example() {
                       </td>
                       <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
                         <div className="flex gap-x-3">
-                          <div className="font-mono text-sm/6 text-gray-500">
-                            {item.commit}
-                          </div>
-                          <span className="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-xs font-medium text-gray-600 ring-1 ring-inset ring-gray-300">
-                            {item.branch}
-                          </span>
-                        </div>
-                      </td>
-                      <td className="py-4 pl-0 pr-4 text-sm/6 sm:pr-8 lg:pr-20">
-                        <div className="flex items-center justify-end gap-x-2 sm:justify-start">
-                          <time
-                            dateTime={item.dateTime}
-                            className="text-gray-500 sm:hidden"
-                          >
-                            {item.date}
-                          </time>
-                          <div
-                            className={classNames(
-                              statuses[item.status],
-                              "flex-none rounded-full p-1"
-                            )}
-                          >
-                            <div className="size-1.5 rounded-full bg-current" />
-                          </div>
-                          <div className="hidden text-gray-900 sm:block">
+                          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-300">
                             {item.status}
-                          </div>
+                          </span>
                         </div>
                       </td>
                       <td className="hidden py-4 pl-0 pr-8 text-sm/6 text-gray-500 md:table-cell lg:pr-20">
