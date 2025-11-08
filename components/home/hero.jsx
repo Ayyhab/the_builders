@@ -1,4 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -49,10 +50,10 @@ export default function Hero() {
           <div className="mt-24 sm:mt-32 lg:mt-16">
             <a href="#" className="inline-flex space-x-6">
               <span className="rounded-full bg-indigo-50 px-3 py-1 text-sm/6 font-semibold text-green-700 ring-1 ring-inset ring-green-500/20">
-                What's new
+                MIT Hackathon 2025
               </span>
               <span className="inline-flex items-center space-x-2 text-sm/6 font-medium text-gray-600">
-                <span>Go to client dashboard</span>
+                <Link href="/dashboard">Go to client dashboard</Link>
                 <ChevronRightIcon
                   aria-hidden="true"
                   className="size-5 text-gray-400"
@@ -68,12 +69,12 @@ export default function Hero() {
             effortless - for every team not just enterprise giants.
           </p>
           <div className="mt-10 flex items-center gap-x-6">
-            <a
-              href="#"
+            <Link
+              href="/dashboard"
               className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Client Dashboard
-            </a>
+            </Link>
           </div>
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
