@@ -347,7 +347,7 @@ export default function ClientPage({ params }) {
           </div>
 
           {/* RIGHT: score circle – white with subtle border; emerald as accent */}
-          <aside className="order-first w-full lg:order-none lg:col-span-1 order-first lg:order-none flex lg:justify-center">
+          <aside className="order-first w-full lg:order-0 lg:col-span-1 flex lg:justify-center">
             <div className="mx-auto relative w-64 h-64 rounded-full bg-white/50 border border-neutral-200 shadow-md backdrop-blur">
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <div className="text-xs uppercase tracking-widest text-neutral-500">Score</div>
@@ -401,7 +401,7 @@ export default function ClientPage({ params }) {
           {attachment?.type === 'image' && (
             <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-2 text-xs text-emerald-700">
               <img src={attachment.url} alt="preview" className="h-7 w-7 rounded-lg object-cover border border-emerald-200" />
-              <span className="truncate max-w-[10rem]">{attachment.name || 'image'}</span>
+              <span className="truncate max-w-40">{attachment.name || 'image'}</span>
               <button onClick={clearAttachment} className="ml-1 rounded-md px-2 py-1 hover:bg-emerald-100" aria-label="Remove image">✕</button>
             </div>
           )}
