@@ -1,0 +1,33 @@
+{
+  "thread": {
+    "threadId": "thread_sample_001",
+    "subject": "Project Proposal Discussion",
+    "messages": [
+      {
+        "id": "msg_001",
+        "from": "john.smith@acmecorp.com",
+        "to": "sales@yourcompany.com",
+        "subject": "Project Proposal Discussion",
+        "body": "Hi, we received your proposal and are currently reviewing it. Our team is interested in moving forward.",
+        "timestamp": "2024-01-15T10:00:00Z"
+      },
+      {
+        "id": "msg_002",
+        "from": "sales@yourcompany.com",
+        "to": "john.smith@acmecorp.com",
+        "subject": "Re: Project Proposal Discussion",
+        "body": "Thank you for the update. Please let us know if you have any questions.",
+        "timestamp": "2024-01-15T11:30:00Z"
+      },
+      {
+        "id": "msg_003",
+        "from": "john.smith@acmecorp.com",
+        "to": "sales@yourcompany.com",
+        "subject": "Re: Project Proposal Discussion",
+        "body": "We're reviewing the contract terms and should have a decision by next week.",
+        "timestamp": "2024-01-16T14:20:00Z"
+      }
+    ]
+  }
+}
+
