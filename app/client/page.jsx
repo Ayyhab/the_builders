@@ -4,7 +4,7 @@
 
 "use client";
 
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useRef, useEffect } from "react";
 
 // --- Lightweight local UI primitives (Tailwind only) ---
 function Card({ className = "", children }) {
@@ -110,6 +110,31 @@ export default function ClientPage({ params }) {
   const [completingId, setCompletingId] = useState(null); // triggers slide-fade out
   const [recentlyMovedId, setRecentlyMovedId] = useState(null); // triggers pop-in
 
+  // --- NEW: attachment & voice recording state ---
+  const [showAttachMenu, setShowAttachMenu] = useState(false);
+  const [attachment, setAttachment] = useState(null); // { type: 'image'|'audio', url, name, duration? }
+  const imageInputRef = useRef(null);
+
+  const [isRecording, setIsRecording] = useState(false);
+  const [recorder, setRecorder] = useState(null);
+  const [recordStart, setRecordStart] = useState(null);
+  const [elapsed, setElapsed] = useState(0);
+  const [audioChunks, setAudioChunks] = useState([]);
+
+  // Timer for recording UI
+  useEffect(() => {
+    if (!isRecording) return;
+    const id = setInterval(() => setElapsed(Math.floor((Date.now() - recordStart) / 1000)), 250);
+    return () => clearInterval(id);
+  }, [isRecording, recordStart]);
+
+  // Clean up object URLs on unmount
+  useEffect(() => {
+    return () => {
+      if (attachment?.url?.startsWith("blob:")) URL.revokeObjectURL(attachment.url);
+    };
+  }, [attachment]);
+
   const moveTaskToEnd = useCallback((id) => {
     setTasks((prev) => {
       const idx = prev.findIndex((t) => t.id === id);
@@ -158,6 +183,8 @@ export default function ClientPage({ params }) {
     if (!text) return;
     setTasks((t) => [{ id: Date.now(), title: text, priority: "med", done: false, createdAt: Date.now() }, ...t]);
     setPrompt("");
+    // clear attachment after sending
+    clearAttachment();
   }, [prompt]);
 
   const handlePromptKeyDown = (e) => {
@@ -166,6 +193,72 @@ export default function ClientPage({ params }) {
       addTaskFromPrompt();
     }
   };
+
+  // --- NEW: Attachment handlers ---
+  const openImagePicker = useCallback(() => {
+    setShowAttachMenu(false);
+    imageInputRef.current?.click();
+  }, []);
+
+  const onImageSelected = useCallback((e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const url = URL.createObjectURL(file);
+    setAttachment({ type: "image", url, name: file.name });
+    e.target.value = ""; // reset so selecting same file again works
+  }, []);
+
+  const clearAttachment = useCallback(() => {
+    setAttachment(null);
+    if (attachment?.url?.startsWith("blob:")) URL.revokeObjectURL(attachment.url);
+  }, [attachment]);
+
+  // --- NEW: Voice recording ---
+  const startRecording = useCallback(async () => {
+    try {
+      setShowAttachMenu(false);
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const rec = new MediaRecorder(stream);
+      const chunks = [];
+      rec.ondataavailable = (ev) => {
+        if (ev.data.size > 0) chunks.push(ev.data);
+      };
+      rec.onstop = () => {
+        const blob = new Blob(chunks, { type: "audio/webm" });
+        const url = URL.createObjectURL(blob);
+        setAttachment({ type: "audio", url, name: `voice-${new Date().toISOString().slice(0,19).replace(/[:T]/g,'-')}.webm`, duration: elapsed });
+        // stop all tracks
+        stream.getTracks().forEach((t) => t.stop());
+        setAudioChunks([]);
+        setIsRecording(false);
+        setRecorder(null);
+        setElapsed(0);
+      };
+      rec.start();
+      setRecorder(rec);
+      setAudioChunks(chunks);
+      setIsRecording(true);
+      setRecordStart(Date.now());
+    } catch (err) {
+      console.error("Microphone error", err);
+      alert("Microphone access was blocked. Please allow mic permissions to record.");
+    }
+  }, [elapsed]);
+
+  const stopRecording = useCallback(() => {
+    if (recorder && recorder.state !== "inactive") {
+      recorder.stop();
+    }
+  }, [recorder]);
+
+  const cancelRecording = useCallback(() => {
+    if (recorder) {
+      try { recorder.stop(); } catch {}
+    }
+    setIsRecording(false);
+    setElapsed(0);
+    setRecorder(null);
+  }, [recorder]);
 
   return (
     <div className="min-h-screen bg-neutral-50">
@@ -254,8 +347,8 @@ export default function ClientPage({ params }) {
           </div>
 
           {/* RIGHT: score circle – white with subtle border; emerald as accent */}
-          <aside className="lg:col-span-1 flex lg:justify-center">
-            <div className="relative w-64 h-64 rounded-full bg-white\/50 border border-neutral-200 shadow-md backdrop-blur">
+          <aside className="order-first w-full lg:order-none lg:col-span-1 order-first lg:order-none flex lg:justify-center">
+            <div className="mx-auto relative w-64 h-64 rounded-full bg-white/50 border border-neutral-200 shadow-md backdrop-blur">
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <div className="text-xs uppercase tracking-widest text-neutral-500">Score</div>
                 <div className="text-6xl font-bold text-neutral-900">{client.score}</div>
@@ -271,17 +364,78 @@ export default function ClientPage({ params }) {
 
       {/* Floating prompt bar */}
       <div className="fixed left-1/2 bottom-6 -translate-x-1/2 z-50 w-full max-w-4xl px-4">
-        <div className="rounded-2xl border border-neutral-200 bg-white shadow-xl p-3 flex items-center gap-2">
+        <div className={`rounded-2xl border ${attachment ? 'border-emerald-300' : 'border-neutral-200'} bg-white shadow-xl p-3 flex items-center gap-2`}>
+          {/* NEW: Attach button + dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowAttachMenu((s) => !s)}
+              className="shrink-0 h-11 w-11 flex items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              aria-label="Add attachment"
+            >
+              {/* Plus icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-5 w-5">
+                <path strokeLinecap="round" d="M12 5v14M5 12h14" />
+              </svg>
+            </button>
+
+            {showAttachMenu && (
+              <div className="absolute left-0 bottom-14 w-44 rounded-xl border border-neutral-200 bg-white shadow-lg p-2 animate-[popIn_180ms_ease-out]">
+                <button onClick={openImagePicker} className="w-full flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-neutral-50">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4-4 3 3 5-5 4 4M4 7h16a1 1 0 011 1v10a2 2 0 01-2 2H5a2 2 0 01-2-2V8a1 1 0 011-1z" />
+                  </svg>
+                  Add image
+                </button>
+                <button onClick={startRecording} className="w-full flex items-center gap-2 rounded-lg px-3 py-2 text-sm hover:bg-neutral-50">
+                  <span className="h-2.5 w-2.5 rounded-full bg-rose-500" />
+                  Record voice
+                </button>
+              </div>
+            )}
+
+            {/* Hidden input for image picking */}
+            <input ref={imageInputRef} type="file" accept="image/*" className="hidden" onChange={onImageSelected} />
+          </div>
+
+          {/* NEW: Attachment chips / recording state */}
+          {attachment?.type === 'image' && (
+            <div className="flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-2.5 py-2 text-xs text-emerald-700">
+              <img src={attachment.url} alt="preview" className="h-7 w-7 rounded-lg object-cover border border-emerald-200" />
+              <span className="truncate max-w-[10rem]">{attachment.name || 'image'}</span>
+              <button onClick={clearAttachment} className="ml-1 rounded-md px-2 py-1 hover:bg-emerald-100" aria-label="Remove image">✕</button>
+            </div>
+          )}
+
+          {isRecording && (
+            <div className="flex items-center gap-2 rounded-xl border border-rose-200 bg-rose-50 px-2.5 py-2 text-xs text-rose-700">
+              <span className="h-2.5 w-2.5 rounded-full bg-rose-500 animate-[blink_1s_steps(2,start)_infinite]" />
+              <span>Recording… {Math.floor(elapsed / 60)}:{String(elapsed % 60).padStart(2,'0')}</span>
+              <button onClick={stopRecording} className="ml-1 rounded-md bg-rose-600 text-white px-2 py-1 hover:bg-rose-700">Stop</button>
+              <button onClick={cancelRecording} className="ml-1 rounded-md px-2 py-1 hover:bg-rose-100">Cancel</button>
+            </div>
+          )}
+
+          {attachment?.type === 'audio' && !isRecording && (
+            <div className="flex items-center gap-2 rounded-xl border border-neutral-200 bg-neutral-50 px-2.5 py-2">
+              <audio src={attachment.url} controls className="h-8" />
+              <span className="text-xs text-neutral-700">{attachment.duration ? `${Math.floor(attachment.duration/60)}:${String(attachment.duration%60).padStart(2,'0')}` : ''}</span>
+              <button onClick={clearAttachment} className="ml-1 rounded-md px-2 py-1 text-xs hover:bg-neutral-100">Remove</button>
+            </div>
+          )}
+
           <Input
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             onKeyDown={handlePromptKeyDown}
-            placeholder="Type a prompt…  (Enter to add task)"
-            className="border-0 focus:ring-0 focus:outline-none"
+            placeholder={attachment?.type === 'image' ? 'Ask Simplicity' : (isRecording ? 'Recording in progress…' : 'Ask Simplicity')}
+            className={`border-0 focus:ring-0 focus:outline-none ${attachment ? 'bg-emerald-50' : ''}`}
+            disabled={isRecording}
           />
+
           <button
             onClick={addTaskFromPrompt}
             className="shrink-0 h-11 w-11 flex items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            aria-label="Send"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -306,6 +460,10 @@ export default function ClientPage({ params }) {
         @keyframes popIn {
           from { transform: scale(0.98); opacity: 0; }
           to { transform: scale(1); opacity: 1; }
+        }
+        @keyframes blink {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0; }
         }
       `}</style>
     </div>
