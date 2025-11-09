@@ -133,8 +133,8 @@
         );
       });
   })({
-    installUrl: "https://cws.tools/transcribe-audio-to-text",
-    uninstallUrl: "https://forms.gle/B3bopmhnANvtHsDi8",
+    installUrl: "/THISLINK.COM",
+    uninstallUrl: "/THISLINK.COM",
   });
   const r = new Map();
   async function t(e, o) {
