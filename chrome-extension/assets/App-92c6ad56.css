@@ -1,0 +1,96 @@
+/* === Title Section === */
+.title {
+  position: relative;
+}
+
+.title div {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: x-small;
+  color: #ccc;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.title button {
+  position: absolute;
+  top: -4px;
+  left: -6px;
+}
+
+/* === Recorder Button Area === */
+.recorder-button-wrapper {
+  position: relative;
+  margin-top: 0 !important;
+  min-height: 150px;
+}
+
+/* === Transcription Text === */
+.transcription-text {
+  position: relative;
+  margin: 0 !important;
+  transition: height 0.2s ease-in-out;
+  overflow: scroll;
+  font-size: medium;
+  cursor: text;
+}
+
+.transcription-text > p {
+  margin: 0;
+}
+
+.transcription-text > button {
+  position: absolute;
+  top: -12px;
+  right: -6px;
+  border-radius: 8px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.transcription-text:hover > button {
+  opacity: 1;
+}
+
+/* === History Day Notes === */
+.history-day-notes .history-day-notes-date button {
+  margin-top: -3px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.history-day-notes:hover .history-day-notes-date button {
+  opacity: 1;
+}
+
+/* === History Record === */
+.history-record {
+  margin: 0;
+}
+
+.history-record button {
+  margin-top: -3px;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.history-record:hover button {
+  opacity: 1;
+}
+
+/* === Alert Styling (Material UI) === */
+.MuiAlert-message {
+  overflow: visible !important;
+}
+
+.MuiAlert-message ol {
+  margin-left: -40px;
+}
+
+.MuiAlert-message img {
+  width: calc(100% + 66px);
+  display: block;
+  margin: 3px -50px 10px;
+}
