@@ -16,6 +16,8 @@ import {
   SignalIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
+import { data } from "../../dummyData/data";
+import Link from "next/link";
 
 const navigation = [
   { name: "Projects", href: "#", icon: FolderIcon, current: false },
@@ -38,100 +40,9 @@ const statuses = {
   Completed: "text-green-500 bg-green-500/10",
   Error: "text-rose-500 bg-rose-500/10",
 };
-const activityItems = [
-  {
-    user: {
-      name: "Michael Foster",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    status: "Not signed",
-    duration: "25s",
-    date: "45 minutes ago",
-    dateTime: "2023-01-23T11:00",
-  },
-  {
-    user: {
-      name: "Lindsay Walton",
-      imageUrl:
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
 
-    status: "Not signed",
-    duration: "1m 32s",
-    date: "3 hours ago",
-    dateTime: "2023-01-23T09:00",
-  },
-  {
-    user: {
-      name: "Courtney Henry",
-      imageUrl:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-
-    status: "On board",
-    duration: "1m 4s",
-    date: "12 hours ago",
-    dateTime: "2023-01-23T00:00",
-  },
-  {
-    user: {
-      name: "Courtney Henry",
-      imageUrl:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    status: "On board",
-    duration: "2m 15s",
-    date: "2 days ago",
-    dateTime: "2023-01-21T13:00",
-  },
-  {
-    user: {
-      name: "Michael Foster",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    status: "On board",
-    duration: "1m 12s",
-    date: "5 days ago",
-    dateTime: "2023-01-18T12:34",
-  },
-  {
-    user: {
-      name: "Courtney Henry",
-      imageUrl:
-        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    status: "On board",
-    duration: "1m 56s",
-    date: "1 week ago",
-    dateTime: "2023-01-16T15:54",
-  },
-  {
-    user: {
-      name: "Michael Foster",
-      imageUrl:
-        "https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    status: "In talks",
-    duration: "3m 45s",
-    date: "1 week ago",
-    dateTime: "2023-01-16T11:31",
-  },
-  {
-    user: {
-      name: "Whitney Francis",
-      imageUrl:
-        "https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-    },
-    status: "Not signed",
-    duration: "37s",
-    date: "2 weeks ago",
-    dateTime: "2023-01-09T08:45",
-  },
-];
 const stats = [
-  { name: "Number of clients", value: `${activityItems.length}` },
+  { name: "Number of clients", value: `${data.length}` },
   { name: "Clients on board", value: "4", unit: "" },
   { name: "Clients completed", value: "12" },
   { name: "Success rate", value: "75.5%" },
@@ -139,9 +50,11 @@ const stats = [
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+import { useRouter } from "next/navigation";
 
 export default function Example() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -374,33 +287,40 @@ export default function Example() {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
-                  {activityItems.map((item) => (
-                    <tr key={item.commit}>
-                      <td className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
+                  {data.map((item) => (
+                    <tr
+                      key={item.id}
+                      onClick={() => router.push(`/client/${item.id}`)}
+                      className="cursor-pointer hover:bg-gray-50 transition"
+                    >
+                      <div className="py-4 pl-4 pr-8 sm:pl-6 lg:pl-8">
                         <div className="flex items-center gap-x-4">
                           <img
                             alt=""
-                            src={item.user.imageUrl}
+                            src={item.imageUrl}
                             className="size-8 rounded-full bg-gray-100 outline outline-1 -outline-offset-1 outline-black/5"
                           />
-                          <div className="truncate text-sm/6 font-medium text-gray-900">
-                            {item.user.name}
+                          <div className="truncate text-sm font-medium text-gray-900">
+                            {item.name}
                           </div>
                         </div>
-                      </td>
-                      <td className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
+                      </div>
+
+                      <div className="hidden py-4 pl-0 pr-4 sm:table-cell sm:pr-8">
                         <div className="flex gap-x-3">
                           <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-600 ring-1 ring-inset ring-green-300">
                             {item.status}
                           </span>
                         </div>
-                      </td>
-                      <td className="hidden py-4 pl-0 pr-8 text-sm/6 text-gray-500 md:table-cell lg:pr-20">
+                      </div>
+
+                      <div className="hidden py-4 pl-0 pr-8 text-sm text-gray-500 md:table-cell lg:pr-20">
                         {item.duration}
-                      </td>
-                      <td className="hidden py-4 pl-0 pr-4 text-right text-sm/6 text-gray-500 sm:table-cell sm:pr-6 lg:pr-8">
+                      </div>
+
+                      <div className="hidden py-4 pl-0 pr-4 text-right text-sm text-gray-500 sm:table-cell sm:pr-6 lg:pr-8">
                         <time dateTime={item.dateTime}>{item.date}</time>
-                      </td>
+                      </div>
                     </tr>
                   ))}
                 </tbody>
