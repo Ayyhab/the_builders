@@ -125,6 +125,7 @@ export default function ClientPage({ client }) {
   const [tasks, setTasks] = useState(initialTasks);
   const [completingId, setCompletingId] = useState(null);
   const [recentlyMovedId, setRecentlyMovedId] = useState(null);
+  const [showMessage, setDisplayMessage] = useState(null);
 
   const [showAttachMenu, setShowAttachMenu] = useState(false);
   const [attachment, setAttachment] = useState(null);
@@ -239,13 +240,14 @@ export default function ClientPage({ client }) {
       addTaskFromPrompt();
     } else {
       // Handle chat/LLM query here
-      const query = prompt.trim();
-      if (query) {
-        console.log("LLM Query:", query);
-        // TODO: Send to LLM
-        setPrompt("");
-        clearAttachment();
-      }
+      // const query = prompt.trim();
+      // if (query) {
+      //   console.log("LLM Query:", query);
+      // TODO: Send to LLM
+      //   setPrompt("");
+      //   clearAttachment();
+      // }
+      setDisplayMessage(true);
     }
   };
 
@@ -355,8 +357,8 @@ export default function ClientPage({ client }) {
               Client Overview
             </div>
           </div>
-          <Badge variant="accent" text={"active"} />
-          <Badge variant="accent" text={"Hi AV"} />
+
+          <Badge variant="accent" text={"Hi Nerva"} />
         </div>
 
         <div className="grid lg:grid-cols-3 gap-6">
@@ -476,7 +478,7 @@ export default function ClientPage({ client }) {
 
           <aside className="order-first lg:order-none lg:col-span-1 space-y-6">
             <div className="flex justify-center">
-              <div className="mx-auto relative w-65 h-64 rounded-full bg-green-100/20 border border-neutral-200 shadow-sm bg-opacity-50">
+              <div className="mx-auto relative w-65 h-64 rounded-full bg-green-100/50 border border-neutral-200 shadow-sm bg-opacity-50">
                 <div className="h-[350px] w-[350px]">
                   <HalfPieChart score={client.score} />
                 </div>
@@ -540,6 +542,29 @@ export default function ClientPage({ client }) {
       </div>
 
       <div className="fixed left-1/2 bottom-6 -translate-x-1/2 z-50 w-full max-w-4xl px-4">
+        {" "}
+        {/* THIS IS THE INPUT BLOCK!!!!  */}
+        {showMessage && (
+          <div className="relative overflow-hidden rounded-lg bg-white shadow mb-2">
+            {/* Close Button */}
+            <button
+              onClick={() => {
+                setDisplayMessage(false);
+                setPrompt("");
+              }}
+              className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+              aria-label="Close"
+            >
+              ✕
+            </button>
+
+            {/* Message Content */}
+            <div className="px-4 py-5 sm:p-6 text-center">
+              You last updated Leo's contact information 9 hours ago. You
+              changed their phone number and email.
+            </div>
+          </div>
+        )}
         {mode === "addTask" && (
           <div className="mb-2 flex items-center justify-between text-sm">
             <span className="text-neutral-600 font-medium">Add Task Mode</span>

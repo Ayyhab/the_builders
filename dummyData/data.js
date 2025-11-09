@@ -8,34 +8,14 @@ export const data = [
     role: "VP Engineering",
     email: "ava@nimbuscloud.io",
     phone: "+1 (415) 555-0134",
-    updatedAt: "2025-11-09T04:00:00Z",
+    updatedAt: "2025-11-09T19:30:00Z",
     status: "Not signed",
-    duration: "25s",
-    date: "45 minutes ago",
+    duration: "40 minutes ago",
+    date: "N/A",
     summary:
-      "Security review in progress. Procurement requests DPIA and pricing for 500 seats. Engineering pilot live on EU cluster.",
-    score: 86,
-    tasks: [
-      { id: 1, title: "Send DPIA packet", priority: "high", done: false },
-      {
-        id: 2,
-        title: "Share procurement-ready pricing (500 seats)",
-        priority: "med",
-        done: false,
-      },
-      {
-        id: 3,
-        title: "Book security deep-dive (45m)",
-        priority: "low",
-        done: false,
-      },
-      {
-        id: 4,
-        title: "Initiate integration process",
-        priority: "low",
-        done: false,
-      },
-    ],
+      "Ava mentioned that they have no remaining budget for this quarter and therefore are not interested.",
+    score: 0,
+    tasks: [],
     timeline: [
       {
         id: 1,
@@ -80,13 +60,13 @@ export const data = [
     role: "Head of Ops",
     email: "leo@marinalogistics.com",
     phone: "+44 20 7946 0013",
-    updatedAt: "2025-11-06T09:30:00Z",
-    status: "Not signed",
-    duration: "25s",
-    date: "45 minutes ago",
+    updatedAt: "2025-11-09T10:30:00Z",
+    status: "Signed",
+    duration: "3 hours ago",
+    date: "Nov 4 2025 at 11:52 am",
     summary:
       "On-prem connector PoC requested. Legal redlines around indemnity cap. Waiting on COO sign-off.",
-    score: 58,
+    score: 94,
     tasks: [
       {
         id: 1,
@@ -138,23 +118,23 @@ export const data = [
     email: "sofia@aetheranalytics.ai",
     phone: "+1 (646) 555-0197",
     updatedAt: "2025-11-08T21:15:00Z",
-    status: "Not signed",
-    duration: "25s",
-    date: "45 minutes ago",
+    status: "Signed",
+    duration: "2 days ago",
+    date: "Nov 2 2025 at 4:40 pm",
     summary:
       "Finalizing pilot results for predictive analytics module. Awaiting CISO approval for data-sharing agreement.",
-    score: 73,
+    score: 86,
     tasks: [
       {
         id: 1,
         title: "Share pilot outcome deck",
-        priority: "med",
+        priority: "low",
         done: false,
       },
       {
         id: 2,
         title: "Confirm CISO review meeting time",
-        priority: "high",
+        priority: "med",
         done: false,
       },
     ],
@@ -196,11 +176,11 @@ export const data = [
     phone: "+1 (212) 555-0188",
     updatedAt: "2025-11-05T17:45:00Z",
     status: "Not signed",
-    duration: "25s",
-    date: "45 minutes ago",
+    duration: "Oct 24 2025 at 2:12 pm",
+    date: "N/A",
     summary:
       "Pending audit integration testing. Requires SOC2 and penetration test certificates for compliance documentation.",
-    score: 64,
+    score: 0,
     tasks: [
       {
         id: 1,
@@ -244,12 +224,12 @@ export const data = [
     email: "maya@orbithealth.io",
     phone: "+1 (310) 555-0172",
     updatedAt: "2025-11-09T03:15:00Z",
-    status: "Not signed",
-    duration: "25s",
-    date: "45 minutes ago",
+    status: "Signed",
+    duration: "Oct 19 2025 at 10:32 am",
+    date: "May 22 2025 at 6:30 pm",
     summary:
       "Product trial expanding to 10 new clinics. Legal reviewing HIPAA compliance. Marketing launch scheduled next week.",
-    score: 91,
+    score: 51,
     tasks: [
       {
         id: 1,

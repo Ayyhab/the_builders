@@ -43,9 +43,9 @@ const statuses = {
 
 const stats = [
   { name: "Number of clients", value: `${data.length}` },
-  { name: "Clients on board", value: "4", unit: "" },
+  { name: "Clients on board", value: "3", unit: "" },
   { name: "Clients completed", value: "12" },
-  { name: "Success rate", value: "75.5%" },
+  { name: "Success rate", value: "60%" },
 ];
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -180,13 +180,10 @@ export default function Example() {
                     </div>
                     <h1 className="flex gap-x-3 text-base/7">
                       <span className="font-semibold text-gray-900">
-                        Company name
+                        Nerva CRM
                       </span>
                     </h1>
                   </div>
-                  <p className="mt-2 text-xs/6 text-gray-500">
-                    Main client CRM
-                  </p>
                 </div>
                 <div className="order-first flex-none rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-500 ring-1 ring-inset ring-green-200 sm:order-none">
                   Production
