@@ -12,8 +12,8 @@ import CardHeader from "./cardHeader";
 import { CardTitle } from "./cardTitle";
 import Button from "./Button";
 import CardContent from "./cardContent";
-import Progress from "./progress";
 import { data } from "../../dummyData/data";
+import HalfPieChart from "./halfPieChart";
 
 // Timeline event types with icons
 const timelineTypes = {
@@ -476,20 +476,9 @@ export default function ClientPage({ client }) {
 
           <aside className="order-first lg:order-none lg:col-span-1 space-y-6">
             <div className="flex justify-center">
-              <div className="mx-auto relative w-64 h-64 rounded-full bg-white/50 border border-neutral-200 shadow-md backdrop-blur">
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-xs uppercase tracking-widest text-neutral-500">
-                    Score
-                  </div>
-                  <div className="text-6xl font-bold text-neutral-900">
-                    {client.score}
-                  </div>
-                  <div className="w-40 mt-4">
-                    <Progress value={client.score} />
-                  </div>
-                  <div className="text-[11px] mt-2 text-neutral-500">
-                    attention / health
-                  </div>
+              <div className="mx-auto relative w-65 h-64 rounded-full bg-green-100/20 border border-neutral-200 shadow-sm bg-opacity-50">
+                <div className="h-[350px] w-[350px]">
+                  <HalfPieChart score={client.score} />
                 </div>
               </div>
             </div>
