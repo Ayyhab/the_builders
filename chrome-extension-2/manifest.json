@@ -1,0 +1,63 @@
+{
+  "update_url": "https://clients2.google.com/service/update2/crx",
+
+  "manifest_version": 3,
+  "name": "Nerva Speech CRM Tool",
+  "description": "Speech to LLM tool for Nerva CRM",
+  "default_locale": "en",
+  "version": "1.14",
+  "oauth2": {
+    "client_id": "451846344656-7utd68g7loapbdvvt1s4k0mrhp860nuv.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/drive.file"
+    ]
+  },
+  "action": {
+    "default_title": "Speech to LLM tool for Nerva CRM",
+    "icons": {
+      "16": "icons/logo.png",
+      "48": "icons/logo.png",
+      "64": "icons/logo.png",
+      "96": "icons/logo.png",
+      "128": "icons/logo.png"
+    }
+  },
+  "background": {
+    "service_worker": "scripts/background.DaQ_GoZy.js",
+    "type": "module"
+  },
+  "permissions": [
+    "sidePanel",
+    "offscreen",
+    "storage",
+    "tabs",
+    "tabCapture",
+    "identity"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["scripts/script.l0sNRNKZ.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "host_permissions": ["<all_urls>"],
+  "side_panel": {
+    "default_path": "pages/sidebar/index.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["fonts/*", "pages/*", "scripts/*", "*.js"],
+      "matches": ["<all_urls>"],
+      "use_dynamic_url": true
+    }
+  ],
+  "icons": {
+    "16": "icons/logo.png",
+    "48": "icons/logo.png",
+    "64": "icons/logo.png",
+    "96": "icons/logo.png",
+    "128": "icons/logo.png"
+  }
+}
