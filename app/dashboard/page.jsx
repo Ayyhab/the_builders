@@ -171,25 +171,6 @@ export default function Example() {
         <div>
           <main>
             <header>
-              {/* Secondary navigation */}
-              <nav className="flex overflow-x-auto border-b border-gray-200 py-4">
-                <ul
-                  role="list"
-                  className="flex min-w-full flex-none gap-x-6 px-4 text-sm/6 font-semibold text-gray-500 sm:px-6 lg:px-8"
-                >
-                  {secondaryNavigation.map((item) => (
-                    <li key={item.name}>
-                      <a
-                        href={item.href}
-                        className={item.current ? "text-green-600" : ""}
-                      >
-                        {item.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
-
               {/* Heading */}
               <div className="flex flex-col items-start justify-between gap-x-8 gap-y-4 bg-gray-50 px-4 py-4 sm:flex-row sm:items-center sm:px-6 lg:px-8">
                 <div>

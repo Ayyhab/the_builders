@@ -72,21 +72,28 @@ export default function Hero() {
           <div className="mt-10 flex items-center gap-x-6">
             <Link
               href="/dashboard"
-              className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="rounded-md bg-green-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-green-700 border-2 border-green-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Client Dashboard
-            </Link>
+            </Link>{" "}
+            <a
+              href="/chrome-extension.zip"
+              download
+              className="rounded-md bg-green-transparent border-green-600 border-2 px-3.5 py-2.5 text-sm font-semibold text-green-600 hover:text-white hover:border-green-700 shadow-sm hover:bg-green-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            >
+              Download Browser Extension
+            </a>
           </div>
         </div>
         <div className="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mr-0 lg:mt-0 lg:max-w-none lg:flex-none xl:ml-32">
           <div className="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-           <Image
-  alt="App screenshot"
-  src="/hero.png"
-  width={2432}
-  height={1442}
-  className="w-full max-h-[1000px] object-contain rounded-md bg-gray-50 shadow-xl ring-1 ring-gray-900/10"
-/>
+            <Image
+              alt="App screenshot"
+              src="/hero.png"
+              width={2432}
+              height={1442}
+              className="w-full max-h-[1000px] object-contain rounded-md bg-gray-50 shadow-xl ring-1 ring-gray-900/10"
+            />
           </div>
         </div>
       </div>
