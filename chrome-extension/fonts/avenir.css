@@ -1,0 +1,35 @@
+/* afacad-regular */
+@font-face {
+    font-display: swap;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 400;
+    src: url('./avenirnextcyr-regular.ttf') format('ttf'); /* Regular */
+}
+
+/* afacad-medium */
+@font-face {
+    font-display: swap;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 500;
+    src: url('./avenirnextcyr-medium.ttf') format('ttf'); /* Medium */
+}
+
+/* afacad-semi-bold */
+@font-face {
+    font-display: swap;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 600;
+    src: url('./avenirnextcyr-demi.ttf') format('ttf'); /* Semi Bold */
+}
+
+/* afacad-bold */
+@font-face {
+    font-display: swap;
+    font-family: 'Avenir';
+    font-style: normal;
+    font-weight: 700;
+    src: url('./avenirnextcyr-bold.ttf') format('ttf'); /* Bold */
+}
